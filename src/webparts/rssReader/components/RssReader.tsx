@@ -114,6 +114,11 @@ export default class RssReader extends React.Component<IRssReaderProps, any> {
               };
 
               var createElementDescription = document.createElement("div");
+              if((result.rss.channel[0].item[i][self.props.description] !== undefined
+              && result.rss.channel[0].item[i][self.props.description] !== "") &&
+              (self.props.title !== "" && self.props.title !== undefined) &&
+              (self.props.subtitle !== "" && self.props.subtitle !== undefined)  )
+              {
               createElementDescription.innerHTML =
                 result.rss.channel[0].item[i][self.props.description][0];
               if (this.props.imagetemplate) {
@@ -132,9 +137,9 @@ export default class RssReader extends React.Component<IRssReaderProps, any> {
               objRssReader.Description =
                 result.rss.channel[0].item[i][self.props.description][0];
               objRssReader.SubTitle =
-                result.rss.channel[0].item[i][this.props.subtitle][0];
+                result.rss.channel[0].item[i][self.props.subtitle][0];
               rssFeedsData.push(objRssReader);
-
+            }  
               //objRssReader.ImageURl=result.rss.channel[0].item[i][""][0];
             }
             self.setState({ rssfeeds: rssFeedsData });

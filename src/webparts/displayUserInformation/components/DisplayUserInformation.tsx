@@ -1,8 +1,8 @@
 import * as React from "react";
 import styles from "./DisplayUserInformation.module.scss";
 import { IDisplayUserInformationProps } from "./IDisplayUserInformationProps";
-import { escape } from "@microsoft/sp-lodash-subset";
-import "../../../CommonCss/list.module.scss";
+
+import "../../../CommonCss/persona.module.scss";
 import {
   IPersonaProps,
   Persona,

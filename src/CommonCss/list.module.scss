@@ -36,7 +36,6 @@ $bodyDividerColor: "[theme:bodyDivider, default: #c8c8c8]";
     color: $ms-color-neutralTertiary;
     margin-bottom: 10px;
   }
-
   .ms-ListBasicExample-chevron {
     align-self: center;
     @include ms-margin-left(10px);
@@ -44,22 +43,6 @@ $bodyDividerColor: "[theme:bodyDivider, default: #c8c8c8]";
     font-size: $ms-font-size-l;
     flex-shrink: 0;
   }
-  .ms-PersonaExample .ms-Persona {
-    
-    margin: 0 0 10px 0;
-  }
-
-  .ms-JobIconExample {
-    margin-right: 5px;
-  }
-
-  .exampleLabel {
-    margin: 10px 0;
-  }
-
-  .customExampleCoin img {
-    border-radius: 20px;
-  }
-
+  
 }
 

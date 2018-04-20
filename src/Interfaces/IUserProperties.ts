@@ -1,6 +1,10 @@
 export interface IUserProperties {
     ParentTerm: ParentTerm;
     userProperties: UserProperties;
+    IsBusinessUnitRoot:IsBusinessUnitRoot;
+  }
+  export interface IsBusinessUnitRoot{
+    Value:boolean
   }
   export interface ParentTerm {
     Name: string;

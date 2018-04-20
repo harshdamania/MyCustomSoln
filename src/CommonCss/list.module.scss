@@ -1,0 +1,64 @@
+@import '~office-ui-fabric-react/dist/sass/Fabric.scss';
+$bodyDividerColor: "[theme:bodyDivider, default: #c8c8c8]";
+:global {
+  .ms-ListBasicExample-itemCell {
+    @include ms-focus-border();
+    min-height: 54px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $bodyDividerColor;
+    display: flex;
+  }
+
+  .ms-ListBasicExample-itemCell:hover {
+    background: #EEE;
+  }
+
+  .ms-ListBasicExample-itemImage {
+    flex-shrink: 0;
+  }
+
+  .ms-ListBasicExample-itemContent {
+    @include ms-margin-left(10px);
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .ms-ListBasicExample-itemName {
+    @include ms-font-xl;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ms-ListBasicExample-itemSub {
+    font-size: $ms-font-size-s;
+    color: $ms-color-neutralTertiary;
+    margin-bottom: 10px;
+  }
+
+  .ms-ListBasicExample-chevron {
+    align-self: center;
+    @include ms-margin-left(10px);
+    color: $ms-color-neutralTertiary;
+    font-size: $ms-font-size-l;
+    flex-shrink: 0;
+  }
+  .ms-PersonaExample .ms-Persona {
+    margin: 0 0 10px 0;
+  }
+
+  .ms-JobIconExample {
+    margin-right: 5px;
+  }
+
+  .exampleLabel {
+    margin: 10px 0;
+  }
+
+  .customExampleCoin img {
+    border-radius: 20px;
+  }
+
+}
+

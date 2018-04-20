@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CustomAction
+        Title="RegisterUserProfileJs"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ClientSideComponentId="a22046d1-bf69-47d5-961e-beab22ede924"
+        ClientSideComponentProperties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
+    </CustomAction>
+</Elements>

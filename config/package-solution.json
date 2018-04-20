@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "share-point-framework-client-side-solution",
+    "id": "4c869052-8010-4e3f-a31a-a2f10cc9de9b",
+    "version": "1.0.0.5",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/share-point-framework.sppkg"
+  }
+}

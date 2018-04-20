@@ -1,0 +1,67 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "rss-reader-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/rssReader/RssReaderWebPart.js",
+          "manifest": "./src/webparts/rssReader/RssReaderWebPart.manifest.json"
+        }
+      ]
+    },
+    "display-user-information-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/displayUserInformation/DisplayUserInformationWebPart.js",
+          "manifest": "./src/webparts/displayUserInformation/DisplayUserInformationWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {
+    "sp-init": {
+      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/init.js",
+      "globalName": "$_global_init"
+    },
+    "microsoft-ajax": {
+      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/MicrosoftAjax.js",
+      "globalName": "Sys",
+      "globalDependencies": [
+        "sp-init"
+      ]
+    },
+    "sp-runtime": {
+      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/SP.Runtime.js",
+      "globalName": "SP",
+      "globalDependencies": [
+        "microsoft-ajax"
+      ]
+    },
+    "sharepoint": {
+      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/SP.js",
+      "globalName": "SP",
+      "globalDependencies": [
+        "sp-runtime"
+      ]
+    },
+    "sp-taxonomy": {
+      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/sp.taxonomy.js",
+      "globalName": "SP.Taxonomy",
+      "globalDependencies": [
+        "sharepoint"
+      ]
+    },
+    "userProfileProp": {
+      "path": "./src/CommonJS/userProfileProperties.js",
+      "globalName": "myLink",
+      "globalDependencies": [
+        "sharepoint"
+      ]
+    }
+  },
+  "localizedResources": {
+    "RssReaderWebPartStrings": "lib/webparts/rssReader/loc/{locale}.js",
+    "DisplayUserInformationWebPartStrings": "lib/webparts/displayUserInformation/loc/{locale}.js"  
+  }
+}

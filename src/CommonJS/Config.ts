@@ -7,7 +7,8 @@ export const rssFeeds = {
     credential:"same-origin",
     headerswithnodata:"application/json; odata=nometadata",
     customProperties:["BusinessUnit","Countries","GeoLocation","CompetenceArea","PictureURL"],
-    currentLanguage:1033
+    currentLanguage:1033,
+    userprofileSession:"waiting for user profile information to be loaded in session"
   }
   export const error={
     businessunitnotfound:"Your Business Unit is not avaiable in term store"

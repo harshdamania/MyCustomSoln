@@ -117,6 +117,7 @@ export default class RssReader extends React.Component<IRssReaderProps, any> {
               if((result.rss.channel[0].item[i][self.props.description] !== undefined
               && result.rss.channel[0].item[i][self.props.description] !== "") &&
               (self.props.title !== "" && self.props.title !== undefined) &&
+              
               (self.props.subtitle !== "" && self.props.subtitle !== undefined)  )
               {
               createElementDescription.innerHTML =

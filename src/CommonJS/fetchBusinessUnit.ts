@@ -31,6 +31,7 @@ export function getBusinessUnit(userproperties): Promise<{}> {
           var term = terms.getItemAtIndex(0);
           
           if (!term.get_isRoot()) {
+            debugger;
             var userProfileProperties = {};
             var parentTermBU: any = getTermValue(term.get_parent());
             var childTermsBU: any = getTermValue(term);            
@@ -41,6 +42,7 @@ export function getBusinessUnit(userproperties): Promise<{}> {
           } else {
             getChildTerms(getTermValue(term)).then(userProfileProperties => {
               userProfileProperties["userProperties"] = userProperties;
+              userProfileProperties["IsBusinessUnitRoot"]=term.get_isRoot();
               resolve(userProfileProperties);
             });
           }
@@ -75,6 +77,7 @@ export function getBusinessUnit(userproperties): Promise<{}> {
           }
           var userProfileProperties = {};
           userProfileProperties["ParentTerm"] = parTerm;
+          userProfileProperties["IsBusinessUnitRoot"]="True";
           parTerm["ChildTerm"] = childTermsBU;
           resolve(userProfileProperties);
         },

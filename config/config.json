@@ -17,6 +17,14 @@
           "manifest": "./src/webparts/displayUserInformation/DisplayUserInformationWebPart.manifest.json"
         }
       ]
+    },
+    "settings-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/settings/SettingsWebPart.js",
+          "manifest": "./src/webparts/settings/SettingsWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {
@@ -62,6 +70,7 @@
   },
   "localizedResources": {
     "RssReaderWebPartStrings": "lib/webparts/rssReader/loc/{locale}.js",
-    "DisplayUserInformationWebPartStrings": "lib/webparts/displayUserInformation/loc/{locale}.js"  
+    "DisplayUserInformationWebPartStrings": "lib/webparts/displayUserInformation/loc/{locale}.js",
+    "SettingsWebPartStrings": "lib/webparts/settings/loc/{locale}.js"
   }
 }

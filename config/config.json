@@ -28,45 +28,7 @@
     }
   },
   "externals": {
-    "sp-init": {
-      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/init.js",
-      "globalName": "$_global_init"
-    },
-    "microsoft-ajax": {
-      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/MicrosoftAjax.js",
-      "globalName": "Sys",
-      "globalDependencies": [
-        "sp-init"
-      ]
-    },
-    "sp-runtime": {
-      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/SP.Runtime.js",
-      "globalName": "SP",
-      "globalDependencies": [
-        "microsoft-ajax"
-      ]
-    },
-    "sharepoint": {
-      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/SP.js",
-      "globalName": "SP",
-      "globalDependencies": [
-        "sp-runtime"
-      ]
-    },
-    "sp-taxonomy": {
-      "path": "https://postennorgeorg.sharepoint.com/_layouts/15/sp.taxonomy.js",
-      "globalName": "SP.Taxonomy",
-      "globalDependencies": [
-        "sharepoint"
-      ]
-    },
-    "userProfileProp": {
-      "path": "./src/CommonJS/userProfileProperties.js",
-      "globalName": "myLink",
-      "globalDependencies": [
-        "sharepoint"
-      ]
-    }
+    
   },
   "localizedResources": {
     "RssReaderWebPartStrings": "lib/webparts/rssReader/loc/{locale}.js",

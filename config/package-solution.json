@@ -3,7 +3,7 @@
   "solution": {
     "name": "share-point-framework-client-side-solution",
     "id": "4c869052-8010-4e3f-a31a-a2f10cc9de9b",
-    "version": "1.0.0.5",
+    "version": "1.0.2.1",
     "includeClientSideAssets": true
   },
   "paths": {

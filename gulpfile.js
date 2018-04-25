@@ -2,6 +2,9 @@
 
 const gulp = require('gulp');
 const build = require('@microsoft/sp-build-web');
-build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
+
+require('./gulpfile-upload-to-sharepoint');
+require('./gulpfile-upload-app-package');
+require('./gulpfile-deploy-app-package');
 
 build.initialize(gulp);

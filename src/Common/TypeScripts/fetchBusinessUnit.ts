@@ -1,4 +1,4 @@
-import { common,error } from "./Config";
+import { common,errorLogs } from "./Config";
 
 export function getBusinessUnit(userproperties): Promise<{}> {
   var parTerm = {};
@@ -48,8 +48,8 @@ export function getBusinessUnit(userproperties): Promise<{}> {
           }
           
           } else {
-          console.log(error.businessunitnotfound);
-          reject(error.businessunitnotfound);
+          console.log(errorLogs.businessUnitNotFound);
+          reject(errorLogs.businessUnitNotFound);
         }
       },
       function(sender, args) {
@@ -83,7 +83,7 @@ export function getBusinessUnit(userproperties): Promise<{}> {
         },
         function(sender, args) {
           console.log(args.get_message());
-          reject(error.businessunitnotfound);
+          reject(errorLogs.businessUnitNotFound);
         }
       );
     });

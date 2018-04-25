@@ -1,4 +1,4 @@
-export interface IBusiness_Unit
+export interface IBusinessUnit
 {
     Title:string;
     ID:Int16Array;

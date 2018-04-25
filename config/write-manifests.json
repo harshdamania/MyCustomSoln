@@ -1,4 +1,4 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/write-manifests.schema.json",
-  "cdnBasePath": "https://postennorgeorg.sharepoint.com/sites/MyLinkV1/Shared%20Documents/Webpart"
+  "cdnBasePath": "https://postennorgeorg.sharepoint.com/sites/MyLinkV1/CDN/Webpart"
 }

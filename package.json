@@ -39,6 +39,8 @@
     "@types/mocha": ">=2.2.33 <2.6.0",
     "@types/sharepoint": "^2016.1.0",
     "ajv": "~5.2.2",
-    "gulp": "~3.9.1"
+    "gulp": "~3.9.1",
+    "gulp-spsync-creds": "2.3.8",
+    "node-sppkg-deploy": "1.2.0"
   }
 }

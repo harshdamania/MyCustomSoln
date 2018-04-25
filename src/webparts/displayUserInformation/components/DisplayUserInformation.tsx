@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./DisplayUserInformation.module.scss";
 import { IDisplayUserInformationProps } from "./IDisplayUserInformationProps";
 
-import "../../../CommonCss/persona.module.scss";
+import "../../../Common/Styles/persona.module.scss";
 import {
   IPersonaProps,
   Persona,
@@ -10,28 +10,75 @@ import {
   PersonaPresence
 } from "office-ui-fabric-react/lib/Persona";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
-import getUserProperties from "../../../CommonJS/getUserProperties";
-import { getBusinessUnit } from "../../../CommonJS/fetchBusinessUnit";
-import { IUserProperties } from "../../../Interfaces/IUserProperties";
-require("sp-init");
-require("microsoft-ajax");
-require("sp-runtime");
-require("sharepoint");
-require("sp-taxonomy");
+import getUserProperties from "../../../Common/TypeScripts/getUserProperties";
+import { getBusinessUnit } from "../../../Common/TypeScripts/fetchBusinessUnit";
+import { IUserProperties } from "../../../Common/Interfaces/IUserProperties";
+import { common } from "../../../Common/TypeScripts/Config";
+import { SPComponentLoader } from "@microsoft/sp-loader";
+import { IDisplayUserInformationState } from "./IDisplayUserInformationState";
 
-
-export default class DisplayUserInformation extends React.Component<IDisplayUserInformationProps,any> {
-  public constructor(props: IDisplayUserInformationProps, any) {
+// require("sp-init");
+// require("microsoft-ajax");
+// require("sp-runtime");
+// require("sharepoint");
+// require("sp-taxonomy");
+export default class DisplayUserInformation extends React.Component<
+  IDisplayUserInformationProps,
+  IDisplayUserInformationState
+> {
+  public constructor(props: IDisplayUserInformationProps, context?: any) {
     super(props);
     this.state = {
-      imageUrl:"",
-      imageInitials:"",
-      primaryText:"",
-      secondaryText:"",
-      tertiaryText:"",
-      optionalText:""
+      loadingLists: false,
+      imageUrl: null,
+      imageInitials: null,
+      primaryText: null,
+      secondaryText: null,
+      tertiaryText: null,
+      optionalText: null
     };
-    
+  }
+  public loadSPTaxonomy() {
+    return new Promise((resolve, reject) => {
+      SPComponentLoader.loadScript("/_layouts/15/sp.taxonomy.js", {
+        globalExportsName: "SP.Taxonomy"
+      }).catch(error => {});
+    });
+  }
+  public loadSPDependencies() {
+    return new Promise((resolve, reject) => {
+      SPComponentLoader.loadScript("/_layouts/15/init.js", {
+        globalExportsName: "$_global_init"
+      })
+        .catch(error => {})
+        .then((): Promise<{}> => {
+          return SPComponentLoader.loadScript("/_layouts/15/MicrosoftAjax.js", {
+            globalExportsName: "Sys"
+          });
+        })
+        .catch(error => {})
+        .then((): Promise<{}> => {
+          return SPComponentLoader.loadScript("/_layouts/15/SP.Runtime.js", {
+            globalExportsName: "SP"
+          });
+        })
+        .catch(error => {})
+        .then((): Promise<{}> => {
+          return SPComponentLoader.loadScript("/_layouts/15/SP.js", {
+            globalExportsName: "SP"
+          });
+        })
+        .catch(error => {})
+        .then((): Promise<{}> => {
+          return SPComponentLoader.loadScript("/_layouts/15/sp.taxonomy.js", {
+            globalExportsName: "SP.Taxonomy"
+          });
+        })
+        .catch(error => {})
+        .then(() => {
+          resolve();
+        });
+    });
   }
   public render(): React.ReactElement<IDisplayUserInformationProps> {
     return (
@@ -59,20 +106,53 @@ export default class DisplayUserInformation extends React.Component<IDisplayUser
       </div>
     );
   };
-  public componentDidMount() {
-  
+  private loadCurrentUserInfo() {
+    debugger;
     getUserProperties().then(userProperties => {
+      debugger;
       getBusinessUnit(userProperties).then(userProperties => {
-        sessionStorage.setItem("myLink", JSON.stringify(userProperties));
-        let myLink = sessionStorage.getItem("myLink");        
-        let myLinkCurrentUser:IUserProperties = JSON.parse(myLink);
-        this.setState({imageUrl:myLinkCurrentUser.userProperties.PictureURL});
-        this.setState({imageInitials:"HD"});
-        this.setState({primaryText:myLinkCurrentUser.userProperties.BusinessUnit});
-        this.setState({secondaryText:myLinkCurrentUser.ParentTerm.Root});
-        this.setState({tertiaryText:myLinkCurrentUser.userProperties.CompetenceArea});
-        this.setState({optionalText:myLinkCurrentUser.userProperties.GeoLocation});
+        debugger;
+        sessionStorage.setItem(
+          common.sessionStoreMyLink,
+          JSON.stringify(userProperties)
+        );
+        let myLink = sessionStorage.getItem(common.sessionStoreMyLink);
+        let myLinkCurrentUser: IUserProperties = JSON.parse(myLink);
+        this.setState({
+          imageUrl: myLinkCurrentUser.userProperties.PictureURL
+        });
+        this.setState({ imageInitials: "HD" });
+        this.setState({
+          primaryText: myLinkCurrentUser.userProperties.BusinessUnit
+        });
+        this.setState({ secondaryText: myLinkCurrentUser.ParentTerm.ID });
+        this.setState({
+          tertiaryText: myLinkCurrentUser.userProperties.CompetenceArea
+        });
+        this.setState({
+          optionalText: myLinkCurrentUser.userProperties.GeoLocation
+        });
       });
-    });    
+    });
+  }
+  public componentDidMount() {
+    debugger;
+    ///Modern Page
+    if (document.getElementById("MSOLayout_InDesignMode") == null) {
+      this.loadSPDependencies().then(() => {
+        this.loadCurrentUserInfo();
+      });
+    } else {
+      //Classic Page
+      if (document.getElementById("MSOLayout_InDesignMode")["value"] !== "1") {
+        this.loadSPDependencies().then(() => {
+          this.loadCurrentUserInfo();
+        });
+      } else {
+        this.loadSPTaxonomy().then(() => {
+          this.loadCurrentUserInfo();
+        });
+      }
+    }
   }
 }

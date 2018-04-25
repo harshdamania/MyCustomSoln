@@ -1,27 +1,32 @@
 import * as React from "react";
 import styles from "./Settings.module.scss";
 import { ISettingsProps } from "./ISettingsProps";
-import { escape, keys } from "@microsoft/sp-lodash-subset";
-import { CError } from "../../../Classes/CError";
-import { sp } from "@pnp/sp";
-import { ISettings } from "../../../Interfaces/ISettings";
-import { IBusiness_Unit } from "../../../Interfaces/IBusiness_Unit";
-import { waitForUserInfo } from "../../../CommonJS/waitForUserInfo";
-import { IUserProperties } from "../../../Interfaces/IUserProperties";
+import { ISettings } from "../../../Common/Interfaces/ISettings";
 
-export default class Settings extends React.Component<ISettingsProps, {}> {
+import { waitForUserInfo } from "../../../Common/TypeScripts/waitForUserInfo";
+import { IUserProperties } from "../../../Common/Interfaces/IUserProperties";
+import {sp } from '@pnp/sp';
+import { MyLinklist, errorLogs } from "../../../Common/TypeScripts/Config";
+export default class Settings extends React.Component<ISettingsProps, any> {
+  public constructor(props: ISettingsProps, any) {
+    super(props);
+    this.state = {
+      settings:""
+    };
+    
+  }
   public render(): React.ReactElement<ISettingsProps> {
     return (
       <div className={styles.settings}>
         <div className={styles.container}>
           <div className={styles.row}>
             <div className={styles.column}>
-              <span className={styles.title}>Welcome to SharePoint!</span>
+              <span className={styles.title}>Welcome to  9809809 !</span>
               <p className={styles.subTitle}>
                 Customize SharePoint experiences using Web Parts.
               </p>
               <p className={styles.description}>
-                {escape(this.props.description)}
+  {this.state.settings}
               </p>
               <a href="https://aka.ms/spfx" className={styles.button}>
                 <span className={styles.label}>Learn more</span>
@@ -40,7 +45,7 @@ export default class Settings extends React.Component<ISettingsProps, {}> {
     console.log(myLinkCurrentUser.userProperties.BusinessUnit);
     var promise = new Promise((resolve, reject) => {
       sp.web.lists
-        .getByTitle("Settings")
+        .getByTitle(MyLinklist.Settings)
         .items.select(
           "Title",
           "Application",
@@ -53,41 +58,40 @@ export default class Settings extends React.Component<ISettingsProps, {}> {
         .then(response => {
           debugger;
           response.map((item: ISettings) => {
-            debugger;            
+            debugger;
             item.Business_x0020_Unit.some(e => {
-              console.log(item.Title)
-              if (myLinkCurrentUser.userProperties.BusinessUnit == "Kornsenfellas") {
+              console.log(item.Title);
+              if (
+                myLinkCurrentUser.userProperties.BusinessUnit == "Kornsenfellas"
+              ) {
                 console.log("Kornsenfellas");
               } else {
                 if (e.Title == myLinkCurrentUser.userProperties.BusinessUnit) {
                   Keys.push(item.Key);
                   return true;
                 } else {
-                  if(myLinkCurrentUser.IsBusinessUnitRoot.Value){
-                    let childmatch:boolean=myLinkCurrentUser.ParentTerm.ChildTerm.some(d => {
-                      if( d.Name == e.Title)
-                      {
-                        Keys.push(item.Key);                    
-                        return true;
+                  if (myLinkCurrentUser.IsBusinessUnitRoot.Value) {
+                    let childmatch: boolean = myLinkCurrentUser.ParentTerm.ChildTerm.some(
+                      element => {
+                        if (element.Name == e.Title) {
+                          Keys.push(item.Key);
+                          return true;
+                        }
                       }
-                    });                  
-                   if(childmatch) return true
-                  }
-                   else{
-                    if(myLinkCurrentUser.ParentTerm.Name==e.Title)
-                    {
+                    );
+                    if (childmatch) return true;
+                  } else {
+                    if (myLinkCurrentUser.ParentTerm.Name == e.Title) {
                       Keys.push(item.Key);
                       return true;
                     }
-                   }
-                 
+                  }
                 }
               }
-            
             });
           });
-          console.log(Keys);
-          this.setState({ keyValues: Keys });
+          console.log(Keys);          
+          this.setState({ settings: Keys.toString() });
           resolve();
         })
         .catch(e => {
@@ -99,8 +103,9 @@ export default class Settings extends React.Component<ISettingsProps, {}> {
   }
   public componentDidMount() {
     waitForUserInfo().then((myLinkCurrentUser: IUserProperties) => {
-      debugger;
       this._getListItemsSettings(myLinkCurrentUser);
+    }).catch((error)=>{
+      console.log(errorLogs.failure +  error);
     });
   }
 }

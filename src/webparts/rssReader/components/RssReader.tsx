@@ -8,11 +8,11 @@ import {
 } from "office-ui-fabric-react/lib/FocusZone";
 import { Image, ImageFit } from "office-ui-fabric-react/lib/Image";
 import { Label } from "office-ui-fabric-react/lib/Label";
-import "../../../CommonCss/list.module.scss";
-import { IRssReader } from "../../../Interfaces/IRssReader";
-import { rssFeeds } from "../../../CommonJS/Config";
-import { waitForUserInfo } from "../../../CommonJS/waitForUserInfo";
-import { IUserProperties } from "../../../Interfaces/IUserProperties";
+import "../../../Common/Styles/list.module.scss";
+import { IRssReader } from "../../../Common/Interfaces/IRssReader";
+import { rssFeeds, errorLogs } from "../../../Common/TypeScripts/Config";
+import { waitForUserInfo } from "../../../Common/TypeScripts/waitForUserInfo";
+import { IUserProperties } from "../../../Common/Interfaces/IUserProperties";
 
 export default class RssReader extends React.Component<IRssReaderProps, any> {
   public constructor(props: IRssReaderProps, any) {
@@ -170,6 +170,8 @@ export default class RssReader extends React.Component<IRssReaderProps, any> {
   public componentDidMount() {
     waitForUserInfo().then((data: IUserProperties) => {
       this._getrssFeeds();
+    }).catch((error)=>{
+      console.log(errorLogs.failure);
     });
   }
 }
